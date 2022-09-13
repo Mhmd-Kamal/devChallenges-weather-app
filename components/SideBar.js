@@ -4,7 +4,7 @@ import TodayPanel from './TodayPanel';
 
 function SideBar({ weather }) {
   return (
-    <div className='w-full bg-sideBG'>
+    <div className=' bg-sideBG md:w-[375px] shrink-0'>
       {/* <LocationForm /> */}
       <TodayPanel weather={weather} />
     </div>

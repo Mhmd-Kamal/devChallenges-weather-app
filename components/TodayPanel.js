@@ -10,29 +10,14 @@ function TodayPanel({ weather }) {
       />
 
       <div className='flex justify-between w-full'>
-        <button className='text-paleGreyFont cursor-pointer bg-[#6E707A] px-5'>
+        <button className='text-paleGreyFont z-10 cursor-pointer bg-[#6E707A] px-5'>
           Search for places
         </button>
         <button className='bg-[#6E707A] rounded-full p-2 cursor-pointer'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke-width='1.5'
-            stroke='currentColor'
-            class='w-6 h-6'
-          >
+          <svg className='w-6 h-6 text-paleGreyFont' viewBox='0 0 24 24'>
             <path
-              className='stroke-paleGreyFont'
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z'
-            />
-            <path
-              className='stroke-paleGreyFont'
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
+              fill='currentColor'
+              d='M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M3.05,13H1V11H3.05C3.5,6.83 6.83,3.5 11,3.05V1H13V3.05C17.17,3.5 20.5,6.83 20.95,11H23V13H20.95C20.5,17.17 17.17,20.5 13,20.95V23H11V20.95C6.83,20.5 3.5,17.17 3.05,13M12,5A7,7 0 0,0 5,12A7,7 0 0,0 12,19A7,7 0 0,0 19,12A7,7 0 0,0 12,5Z'
             />
           </svg>
         </button>
@@ -43,13 +28,13 @@ function TodayPanel({ weather }) {
         alt='weather status image'
       />
 
-      <p className='text-[144px] text-paleGreyFont oldstyle-nums font-semibold'>
-        15<span className='text-6xl font-medium text-greyFont'>&deg;C</span>
+      <p className='text-[144px] text-paleGreyFont font-semibold'>
+        15<span className='text-6xl font-medium text-greyFont '>&#186;C</span>
       </p>
 
       <p className='pt-6 text-4xl font-semibold'>Shower</p>
 
-      <div className='flex gap-4 pt-12 oldstyle-nums'>
+      <div className='flex gap-4 pt-12 '>
         <p>Today</p>
         <p>&#8226;</p>
         <p>Fri, 5 Jun</p>

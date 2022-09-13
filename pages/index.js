@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 import SideBar from '../components/SideBar';
+import WeatherData from '../components/WeatherData';
 
 const Home = () => {
   const [weather, setWeather] = useState();
@@ -23,8 +24,9 @@ const Home = () => {
   });
 
   return (
-    <div className='flex flex-col items-center min-h-screen'>
+    <div className='flex flex-col md:flex-row items-stretch min-h-screen oldstyle-nums '>
       <SideBar weather={weather} />
+      <WeatherData />
     </div>
   );
 };
