@@ -5,11 +5,13 @@ import { showLocationFormAtom } from '../utils/recoilAtoms';
 function LocationForm() {
   const inputRef = useRef();
   const [position, setPosition] = useState();
+  // const [windowWidth, setWindowWidth] = useState();
   const [showLocationForm, setShowLocationForm] =
     useRecoilState(showLocationFormAtom);
 
-  const classes = `flex flex-col items-stretch bg-sideBG pt-4 px-3 text-paleGreyFont absolute inset-0 z-10 transition-all duration-500 -translate-x-[${
-    showLocationForm ? '0px' : '375px'
+  const classes = `flex flex-col items-stretch bg-sideBG pt-4 px-3 text-paleGreyFont absolute inset-0 z-10 transition-all duration-500 origin-[15%_5%] ${
+    showLocationForm ? 'scale-100' : 'scale-0'
+  }
   }]`;
 
   useEffect(() => {
@@ -25,17 +27,19 @@ function LocationForm() {
     );
   }, []);
 
-  function resizeListener() {
-    setShowLocationForm(false);
-  }
+  // function resizeListener() {
+  //   setShowLocationForm(false);
+  //   const sidePanel = document.querySelector('#side-panel');
+  //   setWindowWidth(sidePanel.offsetWidth.toString());
+  // }
 
-  useEffect(() => {
-    window.addEventListener('resize', resizeListener);
+  // useEffect(() => {
+  //   window.addEventListener('resize', resizeListener);
 
-    return () => {
-      window.removeEventListener('resize', resizeListener);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('resize', resizeListener);
+  //   };
+  // }, []);
 
   return (
     <section id='location-form' className={classes}>
