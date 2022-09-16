@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useRecoilState } from 'recoil';
+import { showLocationFormAtom } from '../utils/recoilAtoms';
 
 function LocationForm() {
+  const inputRef = useRef();
   const [position, setPosition] = useState();
+  const [showLocationForm, setShowLocationForm] =
+    useRecoilState(showLocationFormAtom);
+
+  const classes = `flex flex-col items-stretch bg-sideBG pt-4 px-3 text-paleGreyFont absolute inset-0 z-10 transition-all duration-500 -translate-x-[${
+    showLocationForm ? '0px' : '375px'
+  }]`;
+
   useEffect(() => {
-    // console.log(navigator.geolocation);
     navigator.geolocation.getCurrentPosition(
       function (position) {
-        console.log(position, 'lol');
-        console.log(navigator);
+        console.log(position);
         setPosition(position);
       },
       (err) => {
@@ -17,7 +25,135 @@ function LocationForm() {
     );
   }, []);
 
-  return <div>{`location: ${position}`}</div>;
+  function resizeListener() {
+    setShowLocationForm(false);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', resizeListener);
+
+    return () => {
+      window.removeEventListener('resize', resizeListener);
+    };
+  }, []);
+
+  return (
+    <section id='location-form' className={classes}>
+      <div
+        onClick={() => setShowLocationForm(false)}
+        className='self-end cursor-pointer'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          stroke-width='2'
+          stroke='currentColor'
+          class='w-6 h-6'
+        >
+          <path
+            className='fill-current text-paleGreyFont'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M6 18L18 6M6 6l12 12'
+          />
+        </svg>
+      </div>
+
+      <div
+        className='flex pt-8 justify-between '
+        onClick={() => inputRef.current.focus()}
+      >
+        <div className='flex bg-transparent border-paleGreyFont border-[1px] p-3 items-center'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={2.5}
+            stroke='currentColor'
+            className='w-5 h-5'
+          >
+            <path
+              className='text-[#616475]'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z'
+            />
+          </svg>
+
+          <input
+            ref={inputRef}
+            className='placeholder:text-[#616475] bg-transparent pl-4 placeholder:font-medium focus:outline-none'
+            type='text'
+            name='location'
+            id='location'
+            placeholder='search location'
+          />
+        </div>
+        <button className='bg-[#3C47E9] font-medium p-3 px-5 cursor-pointer'>
+          Search
+        </button>
+      </div>
+      <div id='history' className='flex flex-col pt-10'>
+        <ul>
+          <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
+            <p>London</p>
+            <svg
+              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475]'
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke-width='2.5'
+              stroke='currentColor'
+              class='w-6 h-6'
+            >
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                d='M8.25 4.5l7.5 7.5-7.5 7.5'
+              />
+            </svg>
+          </li>
+          <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
+            <p>Barcelona</p>
+            <svg
+              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475]'
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke-width='2.5'
+              stroke='currentColor'
+              class='w-6 h-6'
+            >
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                d='M8.25 4.5l7.5 7.5-7.5 7.5'
+              />
+            </svg>
+          </li>
+          <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
+            <p>Long Beach</p>
+            <svg
+              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475]'
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke-width='2.5'
+              stroke='currentColor'
+              class='w-6 h-6'
+            >
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                d='M8.25 4.5l7.5 7.5-7.5 7.5'
+              />
+            </svg>
+          </li>
+        </ul>
+      </div>
+    </section>
+  );
 }
 
 export default LocationForm;

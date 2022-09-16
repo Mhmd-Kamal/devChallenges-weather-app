@@ -21,11 +21,11 @@ const Home = () => {
 
   useEffect(() => {
     getWeather();
-  });
+  }, []);
 
   return (
     <div className='flex flex-col md:flex-row items-stretch min-h-screen oldstyle-nums '>
-      <SideBar weather={weather} />
+      <SideBar />
       <WeatherData />
     </div>
   );
