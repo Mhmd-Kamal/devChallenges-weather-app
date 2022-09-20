@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    APIKEY: '88389d0d537c611566de0fee295f2a98',
+    APIKEY: 'ac99afca7a7c4bd5add121908221709',
   },
 };

@@ -1,6 +1,8 @@
-import '../styles/globals.css';
+import { Suspense } from 'react';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
+
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -4,7 +4,7 @@ import { showLocationFormAtom } from '../utils/recoilAtoms';
 
 function LocationForm() {
   const inputRef = useRef();
-  const [position, setPosition] = useState();
+  // const [position, setPosition] = useState();
   // const [windowWidth, setWindowWidth] = useState();
   const [showLocationForm, setShowLocationForm] =
     useRecoilState(showLocationFormAtom);
@@ -14,18 +14,18 @@ function LocationForm() {
   }
   }]`;
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        console.log(position);
-        setPosition(position);
-      },
-      (err) => {
-        console.log(err);
-        setPosition(err);
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(
+  //     function (position) {
+  //       console.log(position);
+  //       setPosition(position);
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //       setPosition(err);
+  //     }
+  //   );
+  // }, []);
 
   // function resizeListener() {
   //   setShowLocationForm(false);
@@ -51,14 +51,14 @@ function LocationForm() {
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
           viewBox='0 0 24 24'
-          stroke-width='2'
+          strokeWidth='2'
           stroke='currentColor'
-          class='w-6 h-6'
+          className='w-6 h-6'
         >
           <path
             className='fill-current text-paleGreyFont'
-            stroke-linecap='round'
-            stroke-linejoin='round'
+            strokeLinecap='round'
+            strokeLinejoin='round'
             d='M6 18L18 6M6 6l12 12'
           />
         </svg>
@@ -103,17 +103,17 @@ function LocationForm() {
           <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
             <p>London</p>
             <svg
-              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475]'
+              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475] w-6 h-6'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
-              stroke-width='2.5'
+              strokeWidth='2.5'
               stroke='currentColor'
-              class='w-6 h-6'
+              // className='w-6 h-6'
             >
               <path
-                stroke-linecap='round'
-                stroke-linejoin='round'
+                strokeLinecap='round'
+                strokeLinejoin='round'
                 d='M8.25 4.5l7.5 7.5-7.5 7.5'
               />
             </svg>
@@ -121,17 +121,17 @@ function LocationForm() {
           <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
             <p>Barcelona</p>
             <svg
-              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475]'
+              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475] w-6 h-6'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
-              stroke-width='2.5'
+              strokeWidth='2.5'
               stroke='currentColor'
-              class='w-6 h-6'
+              // className='w-6 h-6'
             >
               <path
-                stroke-linecap='round'
-                stroke-linejoin='round'
+                strokeLinecap='round'
+                strokeLinejoin='round'
                 d='M8.25 4.5l7.5 7.5-7.5 7.5'
               />
             </svg>
@@ -139,17 +139,17 @@ function LocationForm() {
           <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
             <p>Long Beach</p>
             <svg
-              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475]'
+              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475] w-6 h-6'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
-              stroke-width='2.5'
+              strokeWidth='2.5'
               stroke='currentColor'
-              class='w-6 h-6'
+              // className='w-6 h-6'
             >
               <path
-                stroke-linecap='round'
-                stroke-linejoin='round'
+                strokeLinecap='round'
+                strokeLinejoin='round'
                 d='M8.25 4.5l7.5 7.5-7.5 7.5'
               />
             </svg>
