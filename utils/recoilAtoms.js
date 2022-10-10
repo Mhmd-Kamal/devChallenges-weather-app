@@ -15,3 +15,5 @@ export const weatherSelector = selector({
     return weatherData;
   },
 });
+
+export const weatherAtom = atom({ key: 'weather', default: null });

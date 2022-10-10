@@ -1,35 +1,22 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 
 import SideBar from '../components/SideBar';
 import WeatherData from '../components/WeatherData';
-import { weatherSelector } from '../utils/recoilAtoms';
+import { weatherAtom, weatherSelector } from '../utils/recoilAtoms';
 import { getWeather } from '../utils/utils';
 
 const Home = ({ weatherData }) => {
-  const [weather, setWeather] = useState();
+  const [weather, setWeather] = useRecoilState(weatherAtom);
 
-  // async function getWeather() {
-  //   try {
-  //     const res = await fetch(
-  //       `http://api.weatherapi.com/v1/forecast.json?key=${process.env.APIKEY}&q=30.8396601,30.8662496&days=7`
-  //     );
-  //     const data = await res.json();
-  //     setWeather(data);
-  //     console.log(data);
-  //   } catch (err) {
-  //     console.log('error in fetching weather data!.', err);
-  //   }
-  // }
+  useEffect(() => {
+    fetchWeatherData(setWeather);
+  }, []);
 
-  // useEffect(() => {
-  //   getWeather();
-  // }, []);
+  console.log(weather);
 
-  // const weatherData = useRecoilValue(weatherSelector);
-
-  console.log(weatherData);
+  if (!weather) return <div>Loading...</div>;
 
   return (
     <div className='flex flex-col md:flex-row items-stretch min-h-screen oldstyle-nums '>
@@ -41,9 +28,30 @@ const Home = ({ weatherData }) => {
 
 export default Home;
 
-export async function getServerSideProps() {
-  const weatherData = await getWeather();
-  return {
-    props: { weatherData },
-  };
+async function fetchWeatherData(setWeather) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const weather = await getWeather(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+        setWeather(weather);
+      },
+      async () => {
+        const weather = await getWeather();
+        setWeather(weather);
+        alert(
+          'Location sevice is not activated!\nDefault Location is the city of London'
+        );
+      }
+    );
+  } else {
+  }
 }
+// export async function getServerSideProps() {
+//   const weatherData = await getWeather();
+//   return {
+//     props: { weatherData },
+//   };
+// }

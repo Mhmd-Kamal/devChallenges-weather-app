@@ -1,4 +1,10 @@
+import { useRecoilValue } from 'recoil';
+import { weatherAtom } from '../utils/recoilAtoms';
+import { getWindDirection } from '../utils/utils';
+
 export default function Highlights() {
+  const { current } = useRecoilValue(weatherAtom);
+
   return (
     <div className='p-5 xl:p-0 xl:pt-20'>
       <h2 className='text-2xl pb-8 text-paleGreyFont font-bold'>
@@ -11,18 +17,23 @@ export default function Highlights() {
         >
           <h3 className=''>Wind status</h3>
           <p className='font-bold text-[64px]'>
-            7<span className='text-4xl font-medium'>mph</span>
+            {Math.round(current.wind.speed)}
+            <span className='text-4xl pl-2 font-medium'>mph</span>
           </p>
           <div className='flex items-center gap-4 pt-2'>
             <div className='p-1 bg-white/30  rounded-full'>
-              <svg className='w-5 h-5 text-paleGreyFont ' viewBox='0 0 24 24'>
+              <svg
+                style={{ transform: `rotate(${current.wind.deg}deg)` }}
+                className='w-5 h-5 text-paleGreyFont'
+                viewBox='0 0 24 24'
+              >
                 <path
                   fill='currentColor'
                   d='M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z'
                 />
               </svg>
             </div>
-            <p>WSW</p>
+            <p>{getWindDirection(current.wind.deg)}</p>
           </div>
         </div>
 
@@ -32,7 +43,8 @@ export default function Highlights() {
         >
           <h3 className=''>Humidity</h3>
           <p className='font-bold text-[64px]'>
-            84<span className='text-4xl font-medium'>%</span>
+            {Math.round(current.main.humidity)}
+            <span className='text-4xl font-medium'>%</span>
           </p>
           <div>
             <div className='flex text-xs text-greyFont justify-between px-[2px]'>
@@ -46,7 +58,7 @@ export default function Highlights() {
             >
               <div
                 className='bg-[#FFEC65] h-2 rounded-full'
-                style={{ width: `${30}%` }}
+                style={{ width: `${current.main.humidity}%` }}
               ></div>
             </div>
             <div className='flex w-full text-xs text-greyFont justify-end pt-1'>
@@ -61,7 +73,8 @@ export default function Highlights() {
         >
           <h3 className=''>Visibility</h3>
           <p className='font-bold text-[64px]'>
-            6.4 <span className='text-4xl font-medium'>miles</span>
+            {Math.round(current.visibility / 1609.34)}{' '}
+            <span className='text-4xl font-medium'>miles</span>
           </p>
         </div>
 
@@ -71,7 +84,8 @@ export default function Highlights() {
         >
           <h3 className=''>Air Pressure</h3>
           <p className='font-bold text-[64px]'>
-            998 <span className='text-4xl font-medium'>mb</span>
+            {current.main.pressure}{' '}
+            <span className='text-4xl font-medium'>mb</span>
           </p>
         </div>
       </div>

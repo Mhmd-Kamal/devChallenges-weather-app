@@ -1,8 +1,13 @@
-import { useSetRecoilState } from 'recoil';
-import { showLocationFormAtom } from '../utils/recoilAtoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { showLocationFormAtom, weatherAtom } from '../utils/recoilAtoms';
 
+import { formatDate } from '../utils/utils';
 function TodayPanel() {
   const setShowLocationForm = useSetRecoilState(showLocationFormAtom);
+
+  const { current } = useRecoilValue(weatherAtom);
+
+  const date = formatDate(current.dt);
 
   return (
     <section
@@ -33,20 +38,23 @@ function TodayPanel() {
       </div>
       <img
         className='pt-20 w-36'
-        src='/shower.png'
+        src={`/${current.weather[0].main}.png`}
         alt='weather status image'
       />
 
       <p className='text-[144px] text-paleGreyFont font-semibold'>
-        15<span className='text-6xl font-medium text-greyFont '>&#186;C</span>
+        {Math.round(current.main.temp)}
+        <span className='text-6xl font-medium text-greyFont '>&#186;C</span>
       </p>
 
-      <p className='pt-6 text-4xl font-semibold'>Shower</p>
+      <p className='pt-6 text-4xl font-semibold'>
+        {current.weather[0].description}
+      </p>
 
       <div className='flex gap-4 pt-12 '>
         <p>Today</p>
         <p>&#8226;</p>
-        <p>Fri, 5 Jun</p>
+        <p>{date}</p>
       </div>
 
       <div className='flex items-center gap-2 pt-8 pb-24 text-lg'>
@@ -62,7 +70,7 @@ function TodayPanel() {
             clipRule='evenodd'
           />
         </svg>
-        <p className='text-lg font-semibold'>Helsinki</p>
+        <p className='text-lg font-semibold'>{current.name}</p>
       </div>
     </section>
   );
