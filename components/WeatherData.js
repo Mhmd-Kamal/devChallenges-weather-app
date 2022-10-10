@@ -1,8 +1,13 @@
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { weatherAtom } from '../utils/recoilAtoms';
 import DayCard from './DayCard';
 import Highlights from './Highlights';
 
 function WeatherData() {
+  const { forecast } = useRecoilValue(weatherAtom);
+  cosnt;
+
   return (
     <div className='bg-mainBG flex flex-col pb-20 items-center xl:px-44 md:pt-11 w-full'>
       <div className=' hidden text-lg font-bold  gap-3 self-end md:flex pb-16'>
