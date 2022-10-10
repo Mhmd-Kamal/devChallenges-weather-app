@@ -6,7 +6,7 @@ import Highlights from './Highlights';
 
 function WeatherData() {
   const { forecast } = useRecoilValue(weatherAtom);
-  cosnt;
+  const forecastData = forecast.data.slice(1, 6);
 
   return (
     <div className='bg-mainBG flex flex-col pb-20 items-center xl:px-44 md:pt-11 w-full'>
@@ -23,11 +23,9 @@ function WeatherData() {
         id='five-days'
         className='flex flex-wrap py-[52px] px-[54px] gap-[26px] xl:justify-between xl:p-0 xl:w-full'
       >
-        <DayCard />
-        <DayCard />
-        <DayCard />
-        <DayCard />
-        <DayCard />
+        {forecastData.map((day) => (
+          <DayCard day={day} />
+        ))}
       </div>
 
       <Highlights />

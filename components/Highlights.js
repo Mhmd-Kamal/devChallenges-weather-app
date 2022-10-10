@@ -17,13 +17,13 @@ export default function Highlights() {
         >
           <h3 className=''>Wind status</h3>
           <p className='font-bold text-[64px]'>
-            {Math.round(current.wind.speed)}
+            {Math.round(current.data[0].wind_spd)}
             <span className='text-4xl pl-2 font-medium'>mph</span>
           </p>
           <div className='flex items-center gap-4 pt-2'>
             <div className='p-1 bg-white/30  rounded-full'>
               <svg
-                style={{ transform: `rotate(${current.wind.deg}deg)` }}
+                style={{ transform: `rotate(${current.data[0].wind_dir}deg)` }}
                 className='w-5 h-5 text-paleGreyFont'
                 viewBox='0 0 24 24'
               >
@@ -33,7 +33,7 @@ export default function Highlights() {
                 />
               </svg>
             </div>
-            <p>{getWindDirection(current.wind.deg)}</p>
+            <p>{current.data[0].wind_cdir}</p>
           </div>
         </div>
 
@@ -43,7 +43,7 @@ export default function Highlights() {
         >
           <h3 className=''>Humidity</h3>
           <p className='font-bold text-[64px]'>
-            {Math.round(current.main.humidity)}
+            {Math.round(current.data[0].rh)}
             <span className='text-4xl font-medium'>%</span>
           </p>
           <div>
@@ -58,7 +58,7 @@ export default function Highlights() {
             >
               <div
                 className='bg-[#FFEC65] h-2 rounded-full'
-                style={{ width: `${current.main.humidity}%` }}
+                style={{ width: `${current.data[0].rh}%` }}
               ></div>
             </div>
             <div className='flex w-full text-xs text-greyFont justify-end pt-1'>
@@ -73,7 +73,7 @@ export default function Highlights() {
         >
           <h3 className=''>Visibility</h3>
           <p className='font-bold text-[64px]'>
-            {Math.round(current.visibility / 1609.34)}{' '}
+            {Math.round(current.data[0].vis / 1.60934)}{' '}
             <span className='text-4xl font-medium'>miles</span>
           </p>
         </div>
@@ -84,8 +84,8 @@ export default function Highlights() {
         >
           <h3 className=''>Air Pressure</h3>
           <p className='font-bold text-[64px]'>
-            {current.main.pressure}{' '}
-            <span className='text-4xl font-medium'>mb</span>
+            {Math.round(current.data[0].pres)}
+            <span className='text-4xl pl-2 font-medium'>mb</span>
           </p>
         </div>
       </div>

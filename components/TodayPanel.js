@@ -7,7 +7,7 @@ function TodayPanel() {
 
   const { current } = useRecoilValue(weatherAtom);
 
-  const date = formatDate(current.dt);
+  const date = formatDate(current.data[0].ob_time);
 
   return (
     <section
@@ -38,17 +38,17 @@ function TodayPanel() {
       </div>
       <img
         className='pt-20 w-36'
-        src={`/${current.weather[0].main}.png`}
+        src={`https://www.weatherbit.io/static/img/icons/${current.data[0].weather.icon}.png`}
         alt='weather status image'
       />
 
       <p className='text-[144px] text-paleGreyFont font-semibold'>
-        {Math.round(current.main.temp)}
+        {Math.round(current.data[0].temp)}
         <span className='text-6xl font-medium text-greyFont '>&#186;C</span>
       </p>
 
       <p className='pt-6 text-4xl font-semibold'>
-        {current.weather[0].description}
+        {current.data[0].weather.description}
       </p>
 
       <div className='flex gap-4 pt-12 '>
@@ -70,7 +70,7 @@ function TodayPanel() {
             clipRule='evenodd'
           />
         </svg>
-        <p className='text-lg font-semibold'>{current.name}</p>
+        <p className='text-lg font-semibold'>{current.data[0].city_name}</p>
       </div>
     </section>
   );
