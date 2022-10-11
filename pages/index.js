@@ -5,7 +5,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import SideBar from '../components/SideBar';
 import WeatherData from '../components/WeatherData';
 import { weatherAtom, weatherSelector } from '../utils/recoilAtoms';
-import { getWeather } from '../utils/utils';
+import { fetchWeatherData } from '../utils/utils';
 
 const Home = ({ weatherData }) => {
   const [weather, setWeather] = useRecoilState(weatherAtom);
@@ -28,27 +28,6 @@ const Home = ({ weatherData }) => {
 
 export default Home;
 
-async function fetchWeatherData(setWeather) {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const weather = await getWeather(
-          position.coords.latitude,
-          position.coords.longitude
-        );
-        setWeather(weather);
-      },
-      async () => {
-        const weather = await getWeather();
-        setWeather(weather);
-        alert(
-          'Location sevice is not activated!\nDefault Location is the city of London'
-        );
-      }
-    );
-  } else {
-  }
-}
 // export async function getServerSideProps() {
 //   const weatherData = await getWeather();
 //   return {

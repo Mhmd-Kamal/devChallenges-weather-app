@@ -22,3 +22,25 @@ export function formatDate(dateUTC) {
     month: 'short',
   });
 }
+
+export async function fetchWeatherData(setWeather) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const weather = await getWeather(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+        setWeather(weather);
+      },
+      async () => {
+        const weather = await getWeather();
+        setWeather(weather);
+        alert(
+          'Location sevice is not activated!\nDefault Location is the city of London'
+        );
+      }
+    );
+  } else {
+  }
+}

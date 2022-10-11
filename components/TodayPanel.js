@@ -1,10 +1,11 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { showLocationFormAtom, weatherAtom } from '../utils/recoilAtoms';
 
+import { fetchWeatherData } from '../utils/utils';
 import { formatDate } from '../utils/utils';
 function TodayPanel() {
   const setShowLocationForm = useSetRecoilState(showLocationFormAtom);
-
+  const setWeather = useSetRecoilState(weatherAtom);
   const { current } = useRecoilValue(weatherAtom);
 
   const date = formatDate(current.data[0].ob_time);
@@ -27,7 +28,10 @@ function TodayPanel() {
         >
           Search for places
         </button>
-        <button className='bg-[#6E707A] rounded-full p-2 cursor-pointer'>
+        <button
+          onClick={() => fetchWeatherData(setWeather)}
+          className='bg-[#6E707A] rounded-full p-2 cursor-pointer'
+        >
           <svg className='w-6 h-6 text-paleGreyFont' viewBox='0 0 24 24'>
             <path
               fill='currentColor'
