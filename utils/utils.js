@@ -1,6 +1,6 @@
 export async function getWeather(lat = 51.5085, lon = -0.1257) {
   const forecasrResponse = await fetch(
-    `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.APIKEY}&lat=${lat}&lon=${lon}`
+    `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&lat=${lat}&lon=${lon}`
   );
   // if (!res.status) {
   //   throw new Error('Data fetching error.');
@@ -8,11 +8,23 @@ export async function getWeather(lat = 51.5085, lon = -0.1257) {
   const forecast = await forecasrResponse.json();
 
   const currentResponse = await fetch(
-    `https://api.weatherbit.io/v2.0/current?key=${process.env.APIKEY}&lat=${lat}&lon=${lon}`
+    `https://api.weatherbit.io/v2.0/current?key=${process.env.WEATHER_API_KEY}&lat=${lat}&lon=${lon}`
   );
 
   const current = await currentResponse.json();
   return { current, forecast };
+}
+
+export async function searchLocation(query, setSearchResults) {
+  const res = await fetch(
+    `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${process.env.GEOLOCATION_API_KEY}`
+  );
+  if (res.ok) {
+    const locationsArray = await res.json();
+    setSearchResults(locationsArray);
+  } else {
+    setSearchResults(null);
+  }
 }
 
 export function formatDate(dateUTC) {

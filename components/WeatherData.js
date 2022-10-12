@@ -9,8 +9,8 @@ function WeatherData() {
   const forecastData = forecast.data.slice(1, 6);
 
   return (
-    <div className='bg-mainBG flex flex-col pb-20 items-center xl:px-44 md:pt-11 w-full'>
-      <div className=' hidden text-lg font-bold  gap-3 self-end md:flex pb-16'>
+    <div className='flex flex-col items-center w-full pb-20 bg-mainBG xl:px-44 md:pt-11'>
+      <div className='self-end hidden gap-3 pb-16 text-lg font-bold  md:flex'>
         <p className='flex cursor-pointer justify-center items-center w-10 h-10 rounded-full bg-paleGreyFont text-[#110E3C]'>
           &#186;C
         </p>
@@ -23,8 +23,8 @@ function WeatherData() {
         id='five-days'
         className='flex flex-wrap py-[52px] px-[54px] gap-[26px] xl:justify-between xl:p-0 xl:w-full'
       >
-        {forecastData.map((day) => (
-          <DayCard day={day} />
+        {forecastData.map((day, index) => (
+          <DayCard day={day} index={index} />
         ))}
       </div>
 

@@ -1,13 +1,17 @@
 import { formatDate } from '../utils/utils';
 
-function DayCard({ day }) {
-  const date = formatDate(day.valid_date);
+function DayCard({ day, index }) {
+  const date = index === 0 ? 'Tomorrow' : formatDate(day.valid_date);
 
   return (
     <div className='w-[120px] h-[177px] bg-sideBG p-[18px] flex flex-col items-center justify-between'>
-      <p className='text-paleGreyFont text-sm'>{date}</p>
+      <p className='text-sm text-paleGreyFont'>{date}</p>
 
-      <img className='w-14 pb-3' src='/sleet.png' alt='weather status' />
+      <img
+        className='pb-3 w-14'
+        src={`https://www.weatherbit.io/static/img/icons/${day.weather.icon}.png`}
+        alt='weather status'
+      />
 
       <div className='flex justify-between w-full'>
         <p className='text-paleGreyFont'>{Math.round(day.max_temp)}&#186;C</p>

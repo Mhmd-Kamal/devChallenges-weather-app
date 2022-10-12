@@ -1,11 +1,15 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import { showLocationFormAtom } from '../utils/recoilAtoms';
+import { searchLocation } from '../utils/utils';
+import { ResultItem } from './ResultItem';
 
 function LocationForm() {
   const inputRef = useRef();
   // const [position, setPosition] = useState();
   // const [windowWidth, setWindowWidth] = useState();
+
+  const [searchResults, setSearchResults] = useState();
   const [showLocationForm, setShowLocationForm] =
     useRecoilState(showLocationFormAtom);
 
@@ -13,19 +17,6 @@ function LocationForm() {
     showLocationForm ? 'scale-100' : 'scale-0'
   }
   }]`;
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(
-  //     function (position) {
-  //       console.log(position);
-  //       setPosition(position);
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //       setPosition(err);
-  //     }
-  //   );
-  // }, []);
 
   // function resizeListener() {
   //   setShowLocationForm(false);
@@ -41,6 +32,7 @@ function LocationForm() {
   //   };
   // }, []);
 
+  console.log(searchResults);
   return (
     <section id='location-form' className={classes}>
       <div
@@ -65,7 +57,7 @@ function LocationForm() {
       </div>
 
       <div
-        className='flex pt-8 justify-between '
+        className='flex justify-between pt-8 '
         onClick={() => inputRef.current.focus()}
       >
         <div className='flex bg-transparent border-paleGreyFont border-[1px] p-3 items-center'>
@@ -87,6 +79,9 @@ function LocationForm() {
 
           <input
             ref={inputRef}
+            onChange={() =>
+              searchLocation(inputRef.current.value, setSearchResults)
+            }
             className='placeholder:text-[#616475] bg-transparent pl-4 placeholder:font-medium focus:outline-none'
             type='text'
             name='location'
@@ -98,62 +93,11 @@ function LocationForm() {
           Search
         </button>
       </div>
-      <div id='history' className='flex flex-col pt-10'>
+
+      <div id='search-results' className='flex flex-col pt-10'>
         <ul>
-          <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
-            <p>London</p>
-            <svg
-              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475] w-6 h-6'
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth='2.5'
-              stroke='currentColor'
-              // className='w-6 h-6'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M8.25 4.5l7.5 7.5-7.5 7.5'
-              />
-            </svg>
-          </li>
-          <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
-            <p>Barcelona</p>
-            <svg
-              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475] w-6 h-6'
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth='2.5'
-              stroke='currentColor'
-              // className='w-6 h-6'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M8.25 4.5l7.5 7.5-7.5 7.5'
-              />
-            </svg>
-          </li>
-          <li className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'>
-            <p>Long Beach</p>
-            <svg
-              className='hidden group-hover:block group-hover:w-5 group-hover:text-[#616475] w-6 h-6'
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth='2.5'
-              stroke='currentColor'
-              // className='w-6 h-6'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M8.25 4.5l7.5 7.5-7.5 7.5'
-              />
-            </svg>
-          </li>
+          {searchResults &&
+            searchResults.map((result) => <ResultItem city={result} />)}
         </ul>
       </div>
     </section>
