@@ -1,7 +1,16 @@
+import { useSetRecoilState } from 'recoil';
+import { showLocationFormAtom, weatherAtom } from '../utils/recoilAtoms';
+import { fetchWeatherData } from '../utils/utils';
+
 export function ResultItem({ city }) {
+  const setWeather = useSetRecoilState(weatherAtom);
+  const setShowLocationForm = useSetRecoilState(showLocationFormAtom);
   return (
     <li
-      onClick={() => setLocation({ lon: city.lon, lat: city.lat })}
+      onClick={() => {
+        fetchWeatherData(setWeather, { lon: city.lon, lat: city.lat });
+        setShowLocationForm(false);
+      }}
       className='group cursor-pointer flex justify-between group pl-3 py-5 hover:border-[#616475] hover:border-[1px]'
     >
       <div className='flex items-center'>

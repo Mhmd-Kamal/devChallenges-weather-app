@@ -35,24 +35,29 @@ export function formatDate(dateUTC) {
   });
 }
 
-export async function fetchWeatherData(setWeather) {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const weather = await getWeather(
-          position.coords.latitude,
-          position.coords.longitude
-        );
-        setWeather(weather);
-      },
-      async () => {
-        const weather = await getWeather();
-        setWeather(weather);
-        alert(
-          'Location sevice is not activated!\nDefault Location is the city of London'
-        );
-      }
-    );
+export async function fetchWeatherData(setWeather, position) {
+  if (!position) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const weather = await getWeather(
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          setWeather(weather);
+        },
+        async () => {
+          const weather = await getWeather();
+          setWeather(weather);
+          alert(
+            'Location sevice is not activated!\nDefault Location is the city of London'
+          );
+        }
+      );
+    } else {
+    }
   } else {
+    const weather = await getWeather(position.lat, position.lon);
+    setWeather(weather);
   }
 }
