@@ -1,36 +1,48 @@
-import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { weatherAtom } from '../utils/recoilAtoms';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {tempUnitAtom, weatherAtom} from '../utils/recoilAtoms';
 import DayCard from './DayCard';
 import Highlights from './Highlights';
 
 function WeatherData() {
-  const { forecast } = useRecoilValue(weatherAtom);
-  const forecastData = forecast.data.slice(1, 6);
+    const {forecast} = useRecoilValue(weatherAtom);
+    const [tempUnit, setTempUnit] = useRecoilState(tempUnitAtom);
 
-  return (
-    <div className='flex flex-col items-center w-full pb-20 bg-mainBG xl:px-44 md:pt-11'>
-      <div className='self-end hidden gap-3 pb-16 text-lg font-bold  md:flex'>
-        <p className='flex cursor-pointer justify-center items-center w-10 h-10 rounded-full bg-paleGreyFont text-[#110E3C]'>
-          &#186;C
-        </p>
-        <p className='flex cursor-pointer justify-center items-center w-10 h-10 rounded-full bg-[#585676] text-paleGreyFont'>
-          &#186;F
-        </p>
-      </div>
+    const forecastData = forecast.data.slice(1, 6);
 
-      <div
-        id='five-days'
-        className='flex flex-wrap py-[52px] px-[54px] gap-[26px] xl:justify-between xl:p-0 xl:w-full'
-      >
-        {forecastData.map((day, index) => (
-          <DayCard day={day} index={index} />
-        ))}
-      </div>
+    return (
+        <div className='flex flex-col items-center w-full pb-20 bg-mainBG xl:px-44 md:pt-11'>
+            <div className='self-end hidden gap-3 pb-16 text-lg font-bold  md:flex'>
+                <p onClick={() => setTempUnit('c')}
+                   style={tempUnit === 'c' ? {color: '#110E3C', backgroundColor: '#E7E7EB'} : {
+                       color: '#E7E7EB',
+                       backgroundColor: '#585676'
+                   }}
+                   className='transition-colors duration-200 flex cursor-pointer justify-center items-center w-10 h-10 rounded-full '>
+                    &#186;C
+                </p>
+                <p onClick={() => setTempUnit('f')}
+                   style={tempUnit === 'f' ? {color: '#110E3C', backgroundColor: '#E7E7EB'} : {
+                       color: '#E7E7EB',
+                       backgroundColor: '#585676'
+                   }}
 
-      <Highlights />
-    </div>
-  );
+                   className='transition-colors duration-200 flex cursor-pointer justify-center items-center w-10 h-10 rounded-full '>
+                    &#186;F
+                </p>
+            </div>
+
+            <div
+                id='five-days'
+                className='flex flex-wrap py-[52px] px-[54px] gap-[26px] xl:justify-between xl:p-0 xl:w-full'
+            >
+                {forecastData.map((day, index) => (
+                    <DayCard day={day} index={index}/>
+                ))}
+            </div>
+
+            <Highlights/>
+        </div>
+    );
 }
 
 export default WeatherData;

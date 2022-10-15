@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import { showLocationFormAtom } from '../utils/recoilAtoms';
 import { searchLocation } from '../utils/utils';
@@ -32,7 +32,6 @@ function LocationForm() {
   //   };
   // }, []);
 
-  console.log(searchResults);
   return (
     <section id='location-form' className={classes}>
       <div

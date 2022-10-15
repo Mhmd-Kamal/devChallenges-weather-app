@@ -1,10 +1,12 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { showLocationFormAtom, weatherAtom } from '../utils/recoilAtoms';
+import { showLocationFormAtom, weatherAtom,tempUnitAtom } from '../utils/recoilAtoms';
 
 import { fetchWeatherData } from '../utils/utils';
 import { formatDate } from '../utils/utils';
 function TodayPanel() {
   const setShowLocationForm = useSetRecoilState(showLocationFormAtom);
+  const tempUnit = useRecoilValue(tempUnitAtom);
+
   const setWeather = useSetRecoilState(weatherAtom);
   const { current } = useRecoilValue(weatherAtom);
 
@@ -47,8 +49,8 @@ function TodayPanel() {
       />
 
       <p className='text-[144px] text-paleGreyFont font-semibold'>
-        {Math.round(current.data[0].temp)}
-        <span className='text-6xl font-medium text-greyFont '>&#186;C</span>
+        {Math.round(tempUnit==='c' ? current.data[0].temp :(current.data[0].temp*9/5)+32)}
+        <span className='text-6xl font-medium text-greyFont '>&#186;{tempUnit==='c'?'C':'F'}</span>
       </p>
 
       <p className='pt-6 text-4xl font-semibold'>
