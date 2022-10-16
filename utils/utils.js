@@ -17,7 +17,7 @@ export async function getWeather(lat = 51.5085, lon = -0.1257) {
 
 export async function searchLocation(query, setSearchResults) {
   const res = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${process.env.GEOLOCATION_API_KEY}`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${process.env.GEOLOCATION_API_KEY}`
   );
   if (res.ok) {
     const locationsArray = await res.json();
