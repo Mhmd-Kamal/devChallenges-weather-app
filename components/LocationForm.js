@@ -18,6 +18,13 @@ function LocationForm() {
   }
   }]`;
 
+  const getResults = async (city) => {
+    const res = await fetch(`/api/locationSearch?city=${city}`);
+    const results = await res.json();
+
+    setSearchResults(results);
+  };
+
   // function resizeListener() {
   //   setShowLocationForm(false);
   //   const sidePanel = document.querySelector('#side-panel');
@@ -79,7 +86,8 @@ function LocationForm() {
           <input
             ref={inputRef}
             onChange={() =>
-              searchLocation(inputRef.current.value, setSearchResults)
+              // searchLocation(inputRef.current.value, setSearchResults)
+              getResults(inputRef.current.value)
             }
             className='placeholder:text-[#616475] bg-transparent pl-4 placeholder:font-medium focus:outline-none'
             type='text'
@@ -96,7 +104,9 @@ function LocationForm() {
       <div id='search-results' className='flex flex-col pt-10'>
         <ul>
           {searchResults &&
-            searchResults.map((result) => <ResultItem city={result} />)}
+            searchResults.map((result) => (
+              <ResultItem city={result} key={result.name} />
+            ))}
         </ul>
       </div>
     </section>

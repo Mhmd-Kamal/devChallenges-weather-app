@@ -7,7 +7,7 @@ export function ResultItem({ city }) {
   const setShowLocationForm = useSetRecoilState(showLocationFormAtom);
   return (
     <li
-      onClick={() => {
+      onClick={async () => {
         fetchWeatherData(setWeather, { lon: city.lon, lat: city.lat });
         setShowLocationForm(false);
       }}
