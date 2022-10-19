@@ -6,10 +6,8 @@ import { ResultItem } from './ResultItem';
 
 function LocationForm() {
   const inputRef = useRef();
-  // const [position, setPosition] = useState();
-  // const [windowWidth, setWindowWidth] = useState();
 
-  const [searchResults, setSearchResults] = useState();
+  const [searchResults, setSearchResults] = useState([]);
   const [showLocationForm, setShowLocationForm] =
     useRecoilState(showLocationFormAtom);
 
@@ -18,26 +16,18 @@ function LocationForm() {
   }
   }]`;
 
-  const getResults = async (city) => {
-    const res = await fetch(`/api/locationSearch?city=${city}`);
-    const results = await res.json();
+  const getResults = async (query) => {
+    if (query !== '') {
+      const res = await fetch(`/api/locationSearch?city=${query}`);
+      if (res.ok) {
+        const results = await res.json();
 
-    setSearchResults(results);
+        setSearchResults(results);
+      }
+    } else {
+      setSearchResults(null);
+    }
   };
-
-  // function resizeListener() {
-  //   setShowLocationForm(false);
-  //   const sidePanel = document.querySelector('#side-panel');
-  //   setWindowWidth(sidePanel.offsetWidth.toString());
-  // }
-
-  // useEffect(() => {
-  //   window.addEventListener('resize', resizeListener);
-
-  //   return () => {
-  //     window.removeEventListener('resize', resizeListener);
-  //   };
-  // }, []);
 
   return (
     <section id='location-form' className={classes}>
@@ -85,10 +75,6 @@ function LocationForm() {
 
           <input
             ref={inputRef}
-            onChange={() =>
-              // searchLocation(inputRef.current.value, setSearchResults)
-              getResults(inputRef.current.value)
-            }
             className='placeholder:text-[#616475] bg-transparent pl-4 placeholder:font-medium focus:outline-none'
             type='text'
             name='location'
@@ -96,7 +82,12 @@ function LocationForm() {
             placeholder='search location'
           />
         </div>
-        <button className='bg-[#3C47E9] font-medium p-3 px-5 cursor-pointer'>
+        <button
+          onClick={() => {
+            getResults(inputRef.current.value);
+          }}
+          className='bg-[#3C47E9] font-medium p-3 px-5 cursor-pointer'
+        >
           Search
         </button>
       </div>
